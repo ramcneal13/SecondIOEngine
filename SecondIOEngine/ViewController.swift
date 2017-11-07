@@ -176,7 +176,7 @@ class ViewController: NSViewController {
 
 class HistoGraph: NSView {
 	private let dateFormat = DateComponentsFormatter()
-	private var dataPoints:[Int64] = [Int64]()
+	private var dataPoints = [Int64]()
 	
 	func add(_ v:Int64) {
 		dataPoints.append(v)

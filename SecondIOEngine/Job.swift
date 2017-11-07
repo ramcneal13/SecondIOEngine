@@ -35,8 +35,10 @@ class Job {
 		set {
 			do {
 				try target = FileTarget(name: newValue)
+			} catch FileErrors.openFailure(let name, let err){
+				print("Failed to open \(name), err=\(err)")
 			} catch {
-				print("Failed to open \(newValue)")
+				print("unknown system error")
 			}
 			fileName = newValue
 			if sizeStr != "" {
@@ -129,6 +131,23 @@ class Job {
 			self.graphView?.jobCompleted()
 		}
 	}
+}
+
+struct cumStat {
+	var readBytes:Int64 {
+		didSet {
+			readCount += 1
+		}
+	}
+	var writeBytes:Int64 {
+		didSet {
+			writeCount += 1
+		}
+	}
+	var readTimeInterval:TimeInterval
+	var writeTimeInterval:TimeInterval
+	var readCount:Int64
+	var writeCount:Int64
 }
 
 class Runner {
